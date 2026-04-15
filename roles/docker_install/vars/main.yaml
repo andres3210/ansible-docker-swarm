@@ -1,0 +1,6 @@
+---
+docker_apt_release_channel: "stable"
+docker_edition: "ce"
+docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/centos {{ ansible_distribution_release }} stable"
+docker_daemon_options:
+  storage-driver: "overlay2"

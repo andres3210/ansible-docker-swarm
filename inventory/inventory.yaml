@@ -1,0 +1,10 @@
+all:
+  children:
+    managers:
+      hosts:
+        manager1:
+          ansible_host: 192.241.181.198
+    workers:
+      hosts:
+        worker1:
+          ansible_host: 162.243.3.198

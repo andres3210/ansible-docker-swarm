@@ -1,0 +1,13 @@
+# ansible vars
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+ansible_python_interpreter: /usr/bin/python3.9
+ansible_user: root
+ansible_become: true
+
+# nfs vars
+nfs_server: 10.100.0.5
+nfs_share: /8825289/8cd693c8-247e-47b7-8716-7a68497b7a24
+mount_point: /share
+
+# portainer vars
+portainer_data: /share/portainer
