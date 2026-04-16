@@ -1,0 +1,2 @@
+# Traefik secrets
+traefik_base_auth: admin:HASHED_PASSWORD_HASH
