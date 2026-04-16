@@ -34,3 +34,12 @@ accessLog: {}
 
 metrics:
   prometheus: {}
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: {{ traefik_cf_email }}
+      storage: /certs/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0

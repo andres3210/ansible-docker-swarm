@@ -47,6 +47,12 @@
     dest: "{{ traefik_data }}/dynamic/tls.yaml"
     mode: '0755'
 
+- name: Touch ACME storage file for Let's Encrypt
+  ansible.builtin.file:
+    path: "{{ traefik_data }}/certs/acme.json"
+    state: touch
+    mode: '0600'
+
 - name: Install cryptography library for certificate generation (CentOS)
   ansible.builtin.yum:
     name:

@@ -1,2 +1,4 @@
 # Traefik secrets
 traefik_base_auth: admin:HASHED_PASSWORD_HASH
+traefik_cf_email: email@email.com
+traefik_cf_dns_api_token: cloudflare_api_token_acme_valiation

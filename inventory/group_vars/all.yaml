@@ -13,4 +13,5 @@ mount_point: /share
 portainer_data: /share/portainer
 
 # Traefik vars
+traefik_domain: swarm.northek.ca
 traefik_data: /share/traefik
