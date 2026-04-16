@@ -8,3 +8,5 @@ all:
       hosts:
         worker1:
           ansible_host: 162.243.3.198
+        worker2:
+          ansible_host: 107.170.42.103
