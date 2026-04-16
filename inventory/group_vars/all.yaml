@@ -11,3 +11,6 @@ mount_point: /share
 
 # portainer vars
 portainer_data: /share/portainer
+
+# Traefik vars
+traefik_data: /share/traefik

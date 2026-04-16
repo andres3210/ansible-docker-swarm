@@ -29,3 +29,9 @@
   become: true
   roles:
     - portainer_deploy
+
+- name: Deploy Traefik
+  hosts: managers[0]
+  become: true
+  roles:
+    - traefik_deploy

@@ -1,0 +1,64 @@
+---
+- name: Ensure Docker service is running
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Setup Traefik directory
+  ansible.builtin.file:
+    path: /home/docker-apps/traefik
+    state: directory
+    mode: '0755'
+
+- name: Copy compose from template to host
+  ansible.builtin.template:
+    src: "templates/docker_compose.yaml.j2"
+    dest: "/home/docker-apps/traefik/docker-compose.yaml"
+    mode: '0755'
+
+- name: Create Traefik storage on NFS if it doesn't exist
+  ansible.builtin.file:
+    path: "{{ traefik_data }}"
+    state: directory
+    mode: '0755'
+
+- name: Setup Traefik Dynamic directory
+  ansible.builtin.file:
+    path: "{{ traefik_data }}/dynamic"
+    state: directory
+    mode: '0755'
+
+- name: Create Traefik certs directory
+  ansible.builtin.file:
+    path: "{{ traefik_data }}/certs"
+    state: directory
+    mode: '0755'
+
+- name: Copy traefik dynamic configuration from template to host
+  ansible.builtin.template:
+    src: "templates/tls.yaml.j2"
+    dest: "{{ traefik_data }}/dynamic/tls.yaml"
+    mode: '0755'
+
+- name: Install cryptography library for certificate generation (CentOS)
+  ansible.builtin.yum:
+    name:
+      - python3-cryptography
+    state: present
+
+- name: Create private key (RSA, 4096 bits)
+  community.crypto.openssl_privatekey:
+    path: "{{ traefik_data }}/certs/local.key"
+
+- name: Create simple self-signed certificate
+  community.crypto.x509_certificate:
+    path: "{{ traefik_data }}/certs/local.crt"
+    privatekey_path: "{{ traefik_data }}/certs/local.key"
+    provider: selfsigned
+
+- name: Deploy Traefik stack
+  ansible.builtin.command:
+    cmd: docker stack deploy -c /home/docker-apps/traefik/docker-compose.yaml traefik
+  register: swarm_check
+  changed_when: false
