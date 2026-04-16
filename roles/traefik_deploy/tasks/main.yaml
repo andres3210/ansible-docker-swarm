@@ -17,6 +17,12 @@
     dest: "/home/docker-apps/traefik/docker-compose.yaml"
     mode: '0755'
 
+- name: Copy traefik static configuration from template to host
+  ansible.builtin.template:
+    src: "templates/traefik.yaml.j2"
+    dest: "/home/docker-apps/traefik/traefik.yaml"
+    mode: '0755'
+
 - name: Create Traefik storage on NFS if it doesn't exist
   ansible.builtin.file:
     path: "{{ traefik_data }}"
