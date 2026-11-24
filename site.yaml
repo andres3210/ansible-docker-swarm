@@ -1,5 +1,5 @@
 ---
-- name: Setup Docker & NFS on Ubuntu
+- name: Setup Docker & NFS on CentOS Stream 9
   hosts: all
   become: true
   roles:
@@ -24,14 +24,15 @@
   roles:
     - worker_join_docker_swarm
 
-- name: Deploy Portainer
-  hosts: managers[0]
-  become: true
-  roles:
-    - portainer_deploy
-
+# Traefik first: it creates the traefik_proxy network that Portainer joins.
 - name: Deploy Traefik
   hosts: managers[0]
   become: true
   roles:
     - traefik_deploy
+
+- name: Deploy Portainer
+  hosts: managers[0]
+  become: true
+  roles:
+    - portainer_deploy
