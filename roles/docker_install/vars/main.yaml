@@ -2,3 +2,6 @@
 # Target OS: CentOS Stream 9 (dnf/yum, Docker CE repository for CentOS; see tasks/main.yaml).
 docker_daemon_options:
   storage-driver: "overlay2"
+  # Container log rotation: at most 3 files of 10 MB per container, so logs can't fill the disk.
+  log-max-size: "10m"
+  log-max-file: "3"
