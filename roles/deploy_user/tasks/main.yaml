@@ -1,0 +1,19 @@
+---
+# User the Bitbucket pipeline connects as to run `docker stack deploy` (V2 D-020).
+# Membership of the docker group is effectively root on this host: keep its key limited to the pipeline,
+# and SSH (port 22) limited to Bitbucket's IP ranges and admins in the Cloud Firewall.
+
+- name: Create the deploy user
+  ansible.builtin.user:
+    name: "{{ deploy_user }}"
+    groups: docker
+    append: true
+    shell: /bin/bash
+    create_home: true
+
+- name: Authorize the deploy keys (only the listed keys are kept)
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user }}"
+    key: "{{ deploy_authorized_keys | join('\n') }}"
+    exclusive: true
+  when: deploy_authorized_keys | length > 0

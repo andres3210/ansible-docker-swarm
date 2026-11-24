@@ -1,0 +1,6 @@
+# Deploy user for the CI pipeline (roles/deploy_user). Public keys are not secrets.
+deploy_user: deploy
+
+# Bitbucket: Repository settings → Pipelines → SSH keys → Generate keys, then paste the public key here.
+# One entry per key, e.g. "ssh-rsa AAAA... bitbucket-pipelines". Empty = the user is created without keys.
+deploy_authorized_keys: []
