@@ -8,7 +8,7 @@
 - name: Retrieve worker join token from manager
   ansible.builtin.set_fact:
     worker_token: "{{ hostvars[groups['managers'][0]]['worker_token'].stdout }}"
-    when: "'Swarm: inactive' in swarm_check.stdout"
+  when: "'Swarm: inactive' in swarm_check.stdout"
 
 - name: Join worker to Swarm
   ansible.builtin.command:
@@ -18,7 +18,10 @@
       - join
       - --token
       - "{{ worker_token }}"
-      - "{{ hostvars[groups['managers'][0]].ansible_host }}:2377"
+      # Private VPC addresses, so Swarm traffic never uses the public network.
+      - --advertise-addr
+      - "{{ swarm_addr | default(ansible_host) }}"
+      - "{{ hostvars[groups['managers'][0]].swarm_addr | default(hostvars[groups['managers'][0]].ansible_host) }}:2377"
   when:
     - worker_token is defined
     - "'Swarm: inactive' in swarm_check.stdout"

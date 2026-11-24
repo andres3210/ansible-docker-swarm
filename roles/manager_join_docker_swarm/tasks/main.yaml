@@ -12,7 +12,10 @@
 
 - name: Join manager to Swarm
   ansible.builtin.command:
-    cmd: docker swarm join --token {{ manager_token }} {{ hostvars[groups['managers'][0]].ansible_host }}:2377
+    cmd: >-
+      docker swarm join --token {{ manager_token }}
+      --advertise-addr {{ swarm_addr | default(ansible_host) }}
+      {{ hostvars[groups['managers'][0]].swarm_addr | default(hostvars[groups['managers'][0]].ansible_host) }}:2377
   when:
     - manager_token is defined
     - "'Swarm: inactive' in swarm_check.stdout"

@@ -7,7 +7,8 @@
 
 - name: Initialize Docker Swarm
   ansible.builtin.command:
-    cmd: docker swarm init --advertise-addr {{ ansible_host }}
+    # Private VPC address, so Swarm control and overlay traffic never uses the public network.
+    cmd: docker swarm init --advertise-addr {{ swarm_addr | default(ansible_host) }}
   when: "'Swarm: inactive' in swarm_check.stdout"
   register: swarm_init
   changed_when: swarm_init.rc == 0
