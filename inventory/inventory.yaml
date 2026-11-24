@@ -3,10 +3,13 @@ all:
     managers:
       hosts:
         manager1:
-          ansible_host: 201.79.53.44
+          ansible_host: 201.79.53.44 # public IP: Ansible connects over SSH
+          swarm_addr: 10.110.0.3     # private VPC IP: Swarm traffic stays inside the VPC
     workers:
       hosts:
         worker1:
           ansible_host: 165.227.33.102
+          swarm_addr: 10.110.0.4
         worker2:
           ansible_host: 201.79.59.93
+          swarm_addr: 10.110.0.2

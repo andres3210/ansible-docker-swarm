@@ -6,6 +6,12 @@
     - docker_install
     - mount_nfs
 
+- name: Create the CI deploy user
+  hosts: managers
+  become: true
+  roles:
+    - deploy_user
+
 - name: Init Docker Swarm
   hosts: managers[0]
   become: true
