@@ -1,6 +1,4 @@
 ---
-docker_apt_release_channel: "stable"
-docker_edition: "ce"
-docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/centos {{ ansible_distribution_release }} stable"
+# Target OS: CentOS Stream 9 (dnf/yum, Docker CE repository for CentOS; see tasks/main.yaml).
 docker_daemon_options:
   storage-driver: "overlay2"
