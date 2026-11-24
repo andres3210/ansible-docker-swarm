@@ -15,22 +15,33 @@ services:
   portainer:
     image: portainer/portainer-ce:2.39.1
     command: -H tcp://tasks.agent:9001 --tlsskipverify
-    ports:
-      - "9443:9443"
-      - "9000:9000"
-      - "8000:8000"
+    # No published ports: Portainer is reached only through Traefik over HTTPS.
+    # 9000 (HTTP UI) stays internal to the proxy network; 8000 (Edge agents) and 9443 are not used.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /share/portainer:/data
     networks:
       - agent_network
+      - proxy
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints: [node.role == manager]
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.{{ traefik_domain }}`)"
+        - "traefik.http.routers.portainer.entrypoints=websecure"
+        - "traefik.http.routers.portainer.tls=true"
+        - "traefik.http.routers.portainer.tls.certresolver=cloudflare"
+        - "traefik.http.routers.portainer.service=portainer"
+        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
 networks:
   agent_network:
     driver: overlay
     attachable: true
+  # Created by the Traefik stack (stack "traefik", network "proxy"), so Traefik is deployed first.
+  proxy:
+    external: true
+    name: traefik_proxy
