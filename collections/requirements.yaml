@@ -1,6 +1,8 @@
 ---
+# Install with: ansible-galaxy collection install -r collections/requirements.yaml
 collections:
   - name: ansible.utils
   - name: community.general
-  - name: ansible.posix
-  - name: community.docker.docker_stack
+  - name: ansible.posix       # mount (NFS), firewalld
+  - name: community.docker    # Docker / Swarm modules (docker_stack is a module in this collection)
+  - name: community.crypto    # openssl_privatekey, x509_certificate (Traefik self-signed fallback cert)
