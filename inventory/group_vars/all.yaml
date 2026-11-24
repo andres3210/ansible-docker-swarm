@@ -5,9 +5,10 @@ ansible_user: root
 ansible_become: true
 
 # nfs vars
-nfs_server: 10.100.0.5
-nfs_share: /8825289/8cd693c8-247e-47b7-8716-7a68497b7a24
+nfs_server: 10.110.0.5
+nfs_share: /2746917/36237038-363c-43a0-ac7e-fbe4597edb99
 mount_point: /share
+
 
 # portainer vars
 portainer_data: /share/portainer
