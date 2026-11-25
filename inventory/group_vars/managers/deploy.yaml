@@ -3,4 +3,6 @@ deploy_user: deploy
 
 # Bitbucket: Repository settings → Pipelines → SSH keys → Generate keys, then paste the public key here.
 # One entry per key, e.g. "ssh-rsa AAAA... bitbucket-pipelines". Empty = the user is created without keys.
-deploy_authorized_keys: []
+deploy_authorized_keys: [
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCOzHOeuOW4zercJDNvshK6R4NnWG482Ri+eFiKedB44ZIhuuGmOVXjW0pDzPC/XAvPXDcIKZOvGZTwCWz+nSW6omxy4GPXPt9lMiA4p1HZkx8lGNgVzcLTC+wk9ZoczS/G3l3Sf5y/8KkRkJ7Yjtp7V2Hsg/oqm1UaTOVhKb6kcrKx/TEjKAICLs/IoFmfh6UGu3ql7Oe0qUfAW25CLDJNVoo8X11c3IJcuNBYdOAEgFXCRjREHuiWMMT7c+7M4Uw23tPvyHMF3jPB3J1F31vEyTRXfoD/aZrkk8Mqkl2Q7qBRnVpfoFOfE7KyHbkdJ/gSeXXX2fPWKz5LjlMndGDEDqvi/NVUTJlkUeaW2+b0DPk+E1SnQLXR43U/t119ahDa3vxWI848DQzQ9K5vjTZVr7r3gp6+Io8eRK5QHbcRDxwNNDTe5SJ0WFpAWj4b+8mUnMcaLHDsG0oUZAU6FGwIjvQiIUTvhzPOOo0/7KpMoEJASYxcGC3RN41l8G7PTzs="
+]
